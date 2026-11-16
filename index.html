@@ -11,15 +11,15 @@
 <meta name="theme-color" content="#0A2A22">
 <link rel="icon" href="assets/img/selo.webp">
 <script>document.documentElement.classList.add('js')</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/sora.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/heebo.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:Sora;font-style:normal;font-weight:300 600;font-display:swap;src:url(assets/fonts/sora.woff2) format("woff2")}@font-face{font-family:Heebo;font-style:normal;font-weight:400 500;font-display:swap;src:url(assets/fonts/heebo.woff2) format("woff2")}</style>
 <link rel="preload" as="image" href="assets/img/hero.webp" imagesrcset="assets/img/hero-m.webp 900w, assets/img/hero.webp 1920w" imagesizes="100vw">
 <style>
 :root{
   --bg:#F4F2EE; --bg-2:#ECE9E3; --paper:#FFFFFF; --ink:#1C2320; --muted:#636A65; --line:#DFDBD3;
   --deep:#0A2A22; --green:#0A4435; --green-2:#0F4F3E; --lime:#DCEFA6; --lime-2:#C9E37F; --leaf:#62A402;
-  --orange:#F27436; --orange-2:#FF8E55; --orange-d:#C94C14; --amber:#FFA300;
+  --orange:#F27436; --orange-2:#FF8E55; --orange-d:#C94C14; --orange-t:#A8400F; --amber:#FFA300;
   --r-lg:28px; --r:20px; --r-sm:14px; --pad:clamp(16px,4vw,56px); --max:1280px;
   --f-head:"Sora",system-ui,sans-serif; --f-body:"Heebo",system-ui,sans-serif;
   --ease-out:cubic-bezier(.22,1,.36,1); --ease-io:cubic-bezier(.65,0,.35,1); --ease-spring:cubic-bezier(.34,1.56,.64,1);
@@ -41,7 +41,7 @@ h1 em,h2 em{font-style:normal;color:var(--orange-d)}
 .label{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:clamp(32px,5vw,60px)}
 .label b{font-weight:500;color:var(--ink);display:flex;align-items:center;gap:10px}
 .label b:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--orange)}
-.label span{color:var(--orange-d);font-weight:500}
+.label span{color:var(--orange-t);font-weight:500}
 .muted{color:var(--muted)}
 .small{font-size:13px;line-height:1.5}
 
@@ -129,8 +129,10 @@ h1 em,h2 em{font-style:normal;color:var(--orange-d)}
 .hero .cd div:last-child span{opacity:.85}
 .hero.px .stk.s1{translate:calc(var(--hx,0)*-46px) calc(var(--hy,0)*-30px);transition:translate 1s var(--ease-out)}
 .hero.px .stk.s2{translate:calc(var(--hx,0)*54px) calc(var(--hy,0)*36px);transition:translate 1s var(--ease-out)}
-.hero .btn.big{font-size:18px;padding:10px 10px 10px 30px;background:linear-gradient(110deg,var(--orange) 40%,#FFC49F 50%,var(--orange) 60%) var(--orange);background-size:260% 100%;box-shadow:0 18px 50px -12px rgba(242,116,54,.75)}
+.hero .btn.big{font-size:18px;padding:10px 10px 10px 30px;background:var(--orange);box-shadow:0 18px 50px -12px rgba(242,116,54,.75)}
 .hero .btn.big i{width:52px;height:52px}
+.btn .sh{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+.btn .sh:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 38%,rgba(255,236,224,.6) 50%,transparent 62%);transform:translateX(-110%)}
 
 /* marquee */
 .mq{position:relative;overflow:hidden;background:var(--orange);color:var(--deep);white-space:nowrap;padding:14px 0}
@@ -224,7 +226,7 @@ h1 em,h2 em{font-style:normal;color:var(--orange-d)}
 .sp:hover .img img{transform:scale(1.07)}
 .sp h3{font-size:17px;margin:14px 6px 2px}
 .sp p{font-size:13px;color:var(--muted);margin:0 6px 10px;line-height:1.4}
-.sp .lnk{margin:auto 6px 4px;font-size:12px;color:var(--orange-d);font-weight:500}
+.sp .lnk{margin:auto 6px 4px;font-size:12px;color:var(--orange-t);font-weight:500}
 .sp[hidden]{display:none}
 
 /* palestrantes: seção escura interativa */
@@ -403,7 +405,7 @@ dialog.lb::backdrop{background:rgba(6,30,24,.94);backdrop-filter:blur(8px);-webk
 .local .card{padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:14px}
 .local .card .btn{align-self:flex-start;margin-top:auto}
 .local dl{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;font-size:14px}
-.local dt{color:var(--orange-d);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding-top:3px;font-weight:500}
+.local dt{color:var(--orange-t);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding-top:3px;font-weight:500}
 
 /* faq */
 .faq{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(24px,5vw,80px)}
@@ -444,7 +446,7 @@ footer{background:#111614;color:#E8EAE8;margin-top:clamp(56px,8vw,100px);padding
 .foot{display:grid;grid-template-columns:1.2fr 2fr;gap:40px}
 .foot h2{font-size:clamp(26px,3vw,38px);margin-bottom:24px;max-width:14ch}
 .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;font-size:14px}
-.cols h4{font:500 11px var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--orange-2);margin-bottom:10px}
+.cols h3{font:500 11px var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--orange-2);margin-bottom:10px}
 .cols p{margin-bottom:6px}
 .cols a:hover{color:var(--orange-2)}
 .social{display:flex;gap:8px;margin-top:40px;justify-content:flex-end;flex-wrap:wrap}
@@ -509,7 +511,7 @@ footer{background:#111614;color:#E8EAE8;margin-top:clamp(56px,8vw,100px);padding
 .arr:active{transform:scale(.94)}
 .arr svg{width:18px;height:18px}
 .ring-cap{min-width:min(360px,56vw);text-align:center;font-size:14px}
-.ring-cap b{display:block;font:300 13px var(--f-head);letter-spacing:.14em;color:var(--orange-d)}
+.ring-cap b{display:block;font:400 13px var(--f-head);letter-spacing:.14em;color:var(--orange-t)}
 
 /* vídeos: coverflow 3D (sem JS vira grade) */
 .cf{--ch:clamp(440px,50vw,600px)}
@@ -553,8 +555,7 @@ footer{background:#111614;color:#E8EAE8;margin-top:clamp(56px,8vw,100px);padding
   .stk{animation:popin .9s var(--ease-spring) both,bob 6s ease-in-out infinite}
   .stk.s1{animation-delay:1.5s,2.4s}
   .stk.s2{animation-delay:1.8s,0s;animation-direction:normal,alternate-reverse}
-  .cd b.tk{animation:tk .5s var(--ease-out)}
-  .hero .btn.big{animation:shine 3.4s linear 2.2s infinite}
+  .hero .btn .sh:before{animation:shine 3.4s linear 2.2s infinite}
   .mq.run .mq-t{animation:mq 30s linear infinite}
   .mq.giant.run .mq-t{animation-duration:38s;animation-direction:reverse}
   .g-wrap.run{overflow:hidden}
@@ -591,7 +592,7 @@ footer{background:#111614;color:#E8EAE8;margin-top:clamp(56px,8vw,100px);padding
 @keyframes popin{from{opacity:0;scale:.5}}
 @keyframes bob{50%{transform:translateY(-14px) rotate(-2deg)}}
 @keyframes tk{from{transform:translateY(-40%);opacity:0}}
-@keyframes shine{from{background-position:130% 0}to{background-position:-130% 0}}
+@keyframes shine{from{transform:translateX(-110%)}to{transform:translateX(110%)}}
 @keyframes mq{to{transform:translateX(-50%)}}
 @keyframes prog{to{transform:scaleX(1)}}
 @keyframes plx{from{transform:scale(1.12) translateY(-5%)}to{transform:scale(1.12) translateY(0)}}
@@ -674,7 +675,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
 <div class="prog" aria-hidden="true"></div>
 
 <nav class="nav" aria-label="Principal">
-  <a class="brand" href="#topo"><img src="assets/img/selo.webp" width="160" height="175" alt="Cinthia Melo, Espaço Nutridisciplinar"></a>
+  <a class="brand" href="#topo"><img src="assets/img/selo-96.webp" width="96" height="105" alt="Cinthia Melo, Espaço Nutridisciplinar"></a>
   <button class="burger" aria-expanded="false" aria-controls="menu">Menu</button>
   <div class="menu" id="menu">
     <a href="#sobre">Sobre</a>
@@ -720,7 +721,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
         <div><b data-u="d">000</b><span>dias</span></div><div><b data-u="h">00</b><span>horas</span></div><div><b data-u="m">00</b><span>min</span></div><div><b data-u="s">00</b><span>seg</span></div>
       </div>
       <div class="cta-row fx" style="--i:9">
-        <a class="btn big pulse" href="https://pay.kiwify.com.br/d4dkCdo">Garantir minha vaga <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a>
+        <a class="btn big pulse" href="https://pay.kiwify.com.br/d4dkCdo"><span class="sh" aria-hidden="true"></span>Garantir minha vaga <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a>
         <small><b>Lote de lançamento</b>12× de R$ 40,34 ou R$ 390 à vista</small>
       </div>
     </div>
@@ -899,7 +900,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
       <div class="say rv" style="--d:1">
         <span class="mark" aria-hidden="true">“</span>
         <p class="q">O simpósio amplia esse olhar e fortalece a atuação em rede, essencial para uma assistência integral. Seguimos apoiando ações que contribuam para uma atenção mais inclusiva, humanizada e resolutiva.</p>
-        <div class="who"><img src="assets/img/g-1010.webp" width="900" height="600" loading="lazy" alt=""><div>Simone Sales<small>Secretária executiva de Atenção Básica, Macaé</small></div></div>
+        <div class="who"><img src="assets/img/g-1010-600.webp" width="600" height="400" loading="lazy" alt=""><div>Simone Sales<small>Secretária executiva de Atenção Básica, Macaé</small></div></div>
       </div>
     </div>
     <div class="videos cf rv" aria-roledescription="carrossel" aria-label="Vídeos do simpósio">
@@ -922,22 +923,22 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
   </div>
   <div class="ring-stage" tabindex="0" aria-roledescription="carrossel" aria-label="Galeria da 3ª edição. Arraste ou use as setas para girar e Enter para ampliar.">
     <div class="ring">
-      <figure class="ri"><img src="assets/img/g-253.webp" width="900" height="600" loading="lazy" alt="Abertura no palco"></figure>
-      <figure class="ri"><img src="assets/img/g-82.webp" width="900" height="1350" loading="lazy" alt="Palestrante no palco"></figure>
-      <figure class="ri"><img src="assets/img/g-191.webp" width="900" height="600" loading="lazy" alt="Palestra com o auditório cheio"></figure>
-      <figure class="ri"><img src="assets/img/g-620.webp" width="900" height="1326" loading="lazy" alt="Cinthia Melo no auditório"></figure>
-      <figure class="ri"><img src="assets/img/g-149.webp" width="900" height="600" loading="lazy" alt="Materiais de terapia alimentar"></figure>
-      <figure class="ri"><img src="assets/img/g-199.webp" width="900" height="1350" loading="lazy" alt="Palestrante com microfone"></figure>
-      <figure class="ri"><img src="assets/img/g-310.webp" width="900" height="600" loading="lazy" alt="Participantes nos estandes"></figure>
-      <figure class="ri"><img src="assets/img/recepcao.webp" width="1100" height="734" loading="lazy" alt="Recepção dos participantes"></figure>
-      <figure class="ri"><img src="assets/img/g-974.webp" width="900" height="600" loading="lazy" alt="Foto coletiva no palco"></figure>
-      <figure class="ri"><img src="assets/img/g-128.webp" width="900" height="1350" loading="lazy" alt="Palestrante no palco"></figure>
-      <figure class="ri"><img src="assets/img/g-226.webp" width="900" height="600" loading="lazy" alt="Kits dos participantes"></figure>
-      <figure class="ri"><img src="assets/img/g-679.webp" width="900" height="1350" loading="lazy" alt="Palestra de Lívia Rodrigues"></figure>
-      <figure class="ri"><img src="assets/img/g-337.webp" width="900" height="600" loading="lazy" alt="Participantes no painel de patrocinadores"></figure>
-      <figure class="ri"><img src="assets/img/g-248.webp" width="900" height="1410" loading="lazy" alt="Palestrante diante do painel do simpósio"></figure>
-      <figure class="ri"><img src="assets/img/g-258.webp" width="900" height="600" loading="lazy" alt="Encontro de palestrantes no palco"></figure>
-      <figure class="ri"><img src="assets/img/g-1055.webp" width="900" height="600" loading="lazy" alt="Encerramento no palco"></figure>
+      <figure class="ri"><img src="assets/img/g-253.webp" srcset="assets/img/g-253-600.webp 600w, assets/img/g-253.webp 900w" sizes="(max-width:700px) 290px, 580px" width="900" height="600" loading="lazy" alt="Abertura no palco"></figure>
+      <figure class="ri"><img src="assets/img/g-82.webp" srcset="assets/img/g-82-600.webp 600w, assets/img/g-82.webp 900w" sizes="(max-width:700px) 190px, 290px" width="900" height="1350" loading="lazy" alt="Palestrante no palco"></figure>
+      <figure class="ri"><img src="assets/img/g-191.webp" srcset="assets/img/g-191-600.webp 600w, assets/img/g-191.webp 900w" sizes="(max-width:700px) 290px, 580px" width="900" height="600" loading="lazy" alt="Palestra com o auditório cheio"></figure>
+      <figure class="ri"><img src="assets/img/g-620.webp" srcset="assets/img/g-620-600.webp 600w, assets/img/g-620.webp 900w" sizes="(max-width:700px) 190px, 290px" width="900" height="1326" loading="lazy" alt="Cinthia Melo no auditório"></figure>
+      <figure class="ri"><img src="assets/img/g-149.webp" srcset="assets/img/g-149-600.webp 600w, assets/img/g-149.webp 900w" sizes="(max-width:700px) 290px, 580px" width="900" height="600" loading="lazy" alt="Materiais de terapia alimentar"></figure>
+      <figure class="ri"><img src="assets/img/g-199.webp" srcset="assets/img/g-199-600.webp 600w, assets/img/g-199.webp 900w" sizes="(max-width:700px) 190px, 290px" width="900" height="1350" loading="lazy" alt="Palestrante com microfone"></figure>
+      <figure class="ri"><img src="assets/img/g-310.webp" srcset="assets/img/g-310-600.webp 600w, assets/img/g-310.webp 900w" sizes="(max-width:700px) 290px, 580px" width="900" height="600" loading="lazy" alt="Participantes nos estandes"></figure>
+      <figure class="ri"><img src="assets/img/recepcao.webp" srcset="assets/img/recepcao-600.webp 600w, assets/img/recepcao.webp 1100w" sizes="(max-width:700px) 290px, 580px" width="1100" height="734" loading="lazy" alt="Recepção dos participantes"></figure>
+      <figure class="ri"><img src="assets/img/g-974.webp" srcset="assets/img/g-974-600.webp 600w, assets/img/g-974.webp 900w" sizes="(max-width:700px) 290px, 580px" width="900" height="600" loading="lazy" alt="Foto coletiva no palco"></figure>
+      <figure class="ri"><img src="assets/img/g-128.webp" srcset="assets/img/g-128-600.webp 600w, assets/img/g-128.webp 900w" sizes="(max-width:700px) 190px, 290px" width="900" height="1350" loading="lazy" alt="Palestrante no palco"></figure>
+      <figure class="ri"><img src="assets/img/g-226.webp" srcset="assets/img/g-226-600.webp 600w, assets/img/g-226.webp 900w" sizes="(max-width:700px) 290px, 580px" width="900" height="600" loading="lazy" alt="Kits dos participantes"></figure>
+      <figure class="ri"><img src="assets/img/g-679.webp" srcset="assets/img/g-679-600.webp 600w, assets/img/g-679.webp 900w" sizes="(max-width:700px) 190px, 290px" width="900" height="1350" loading="lazy" alt="Palestra de Lívia Rodrigues"></figure>
+      <figure class="ri"><img src="assets/img/g-337.webp" srcset="assets/img/g-337-600.webp 600w, assets/img/g-337.webp 900w" sizes="(max-width:700px) 290px, 580px" width="900" height="600" loading="lazy" alt="Participantes no painel de patrocinadores"></figure>
+      <figure class="ri"><img src="assets/img/g-248.webp" srcset="assets/img/g-248-600.webp 600w, assets/img/g-248.webp 900w" sizes="(max-width:700px) 190px, 290px" width="900" height="1410" loading="lazy" alt="Palestrante diante do painel do simpósio"></figure>
+      <figure class="ri"><img src="assets/img/g-258.webp" srcset="assets/img/g-258-600.webp 600w, assets/img/g-258.webp 900w" sizes="(max-width:700px) 290px, 580px" width="900" height="600" loading="lazy" alt="Encontro de palestrantes no palco"></figure>
+      <figure class="ri"><img src="assets/img/g-1055.webp" srcset="assets/img/g-1055-600.webp 600w, assets/img/g-1055.webp 900w" sizes="(max-width:700px) 290px, 580px" width="900" height="600" loading="lazy" alt="Encerramento no palco"></figure>
     </div>
   </div>
   <div class="ctrl"><button class="arr" data-ring="-1" aria-label="Foto anterior"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 8H3M7 4 3 8l4 4"/></svg></button><p class="ring-cap"><b>01 / 16</b><span></span></p><button class="arr" data-ring="1" aria-label="Próxima foto"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button></div>
@@ -1029,9 +1030,9 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
       </div>
       <div>
         <div class="cols">
-          <div><h4>Quando</h4><p>21 e 22 de maio de 2027</p><p>Sexta 9h–17h</p><p>Sábado 9h–18h</p></div>
-          <div><h4>Onde</h4><p>Royal Atlântica Macaé Hotel</p><p>Av. Atlântica, 1546</p><p>Macaé/RJ</p></div>
-          <div><h4>Contato</h4><p><a href="https://wa.me/5522997470556">(22) 99747-0556</a></p><p><a href="mailto:contato@cinthiamelonutri.com.br">contato@cinthiamelonutri.com.br</a></p></div>
+          <div><h3>Quando</h3><p>21 e 22 de maio de 2027</p><p>Sexta 9h–17h</p><p>Sábado 9h–18h</p></div>
+          <div><h3>Onde</h3><p>Royal Atlântica Macaé Hotel</p><p>Av. Atlântica, 1546</p><p>Macaé/RJ</p></div>
+          <div><h3>Contato</h3><p><a href="https://wa.me/5522997470556">(22) 99747-0556</a></p><p><a href="mailto:contato@cinthiamelonutri.com.br">contato@cinthiamelonutri.com.br</a></p></div>
         </div>
         <div class="social"><a href="https://www.instagram.com/cinthiamelonutri/">Instagram</a><a href="https://www.youtube.com/@CinthiaMeloNutri">YouTube</a><a href="https://cinthiamelonutri.com.br/">Site</a></div>
       </div>
@@ -1057,7 +1058,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
     <ul class="spm-hl"></ul>
     <div class="spm-cta">
       <a class="btn" href="https://pay.kiwify.com.br/d4dkCdo">Quero assistir no simpósio <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a>
-      <a class="more" target="_blank" rel="noopener">Biografia completa no site ↗</a>
+      <a class="more" href="https://cinthiamelonutri.com.br/palestrante-cinthia-melo/" target="_blank" rel="noopener">Biografia completa no site ↗</a>
     </div>
   </div>
 </dialog>
@@ -1085,7 +1086,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
   /* contagem regressiva */
   const target=new Date('2027-05-21T09:00:00-03:00').getTime(),cds=$$('[data-cd]'),pad=(n,l=2)=>String(n).padStart(l,'0');
   const tick=()=>{let s=Math.max(0,Math.floor((target-Date.now())/1e3));const v={d:Math.floor(s/86400),h:Math.floor(s%86400/3600),m:Math.floor(s%3600/60),s:s%60};
-    cds.forEach(c=>{c.hidden=false;for(const k in v){const el=$(`[data-u=${k}]`,c),t=String(k==='d'?v.d:pad(v[k]));if(el.textContent!==t){el.textContent=t;el.classList.remove('tk');void el.offsetWidth;el.classList.add('tk')}}})};
+    cds.forEach(c=>{c.hidden=false;for(const k in v){const el=$(`[data-u=${k}]`,c),t=String(k==='d'?v.d:pad(v[k]));if(el.textContent!==t){el.textContent=t;if(!reduce&&!document.hidden)el.animate([{transform:'translateY(-40%)',opacity:0},{transform:'none',opacity:1}],{duration:500,easing:'cubic-bezier(.22,1,.36,1)'})}}})};
   tick();setInterval(tick,1000);
 
   /* faixas em movimento: duplica o conteúdo para o loop ficar contínuo */
@@ -1209,7 +1210,9 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
   if(st){
     const ring=$('.ring',st),its=$$('.ri',st),n=its.length,T=360/n,cap=$('.ring-cap');
     let a=0,v=0,target=null,drag=null,hover=false,vis=false,raf=0,last=0,downImg=null,moved=0,lastF=-1,R=0;
-    its.forEach((it,i)=>{it.style.setProperty('--i',i);$('img',it).draggable=false;$('img',it).loading='eager'});
+    its.forEach((it,i)=>{it.style.setProperty('--i',i);$('img',it).draggable=false});
+    /* as fotos do anel só carregam quando a galeria se aproxima da tela */
+    if('IntersectionObserver' in window){const lo=new IntersectionObserver(([e])=>{if(e.isIntersecting){its.forEach(it=>$('img',it).loading='eager');lo.disconnect()}},{rootMargin:'900px 0px'});lo.observe(st)}
     const size=()=>{const w=st.clientWidth<700?190:290;R=Math.round((w+22)/2/Math.tan(Math.PI/n));st.style.setProperty('--w',w+'px');ring.style.setProperty('--rad',R+'px');ring.style.setProperty('--t',T+'deg')};
     st.classList.add('on');size();addEventListener('resize',size);
     const front=()=>((Math.round(-a/T)%n)+n)%n;
@@ -1261,7 +1264,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
       more:'<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></svg>'};
     vs.forEach((v,i)=>{
       const poster=v.querySelector(':scope>img');poster.classList.add('poster');
-      v.insertAdjacentHTML('afterbegin',`<div class="ig-top" aria-hidden="true"><span class="ig-bar"><i></i></span><span class="ig-user"><img src="assets/img/selo.webp" alt=""><b>cinthiamelonutri</b><span>· 3º Simpósio</span>${ICON.reel}</span></div>`);
+      v.insertAdjacentHTML('afterbegin',`<div class="ig-top" aria-hidden="true"><span class="ig-bar"><i></i></span><span class="ig-user"><img src="assets/img/selo-96.webp" alt=""><b>cinthiamelonutri</b><span>· 3º Simpósio</span>${ICON.reel}</span></div>`);
       v.insertAdjacentHTML('beforeend',`<div class="ig-side"><button class="like" type="button" aria-pressed="false" aria-label="Curtir vídeo">${ICON.heart}</button><span aria-hidden="true">${ICON.chat}</span><span aria-hidden="true">${ICON.send}</span><span aria-hidden="true">${ICON.more}</span></div>`);
       const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Vídeo: '+v.dataset.name);
       b.innerHTML=`<span class="st-ring"><img src="${poster.getAttribute('src')}" alt=""></span>${v.dataset.name}`;b.onclick=()=>go(i);st.append(b);
