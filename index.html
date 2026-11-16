@@ -1174,7 +1174,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
       el.addEventListener('pointerleave',()=>{cancelAnimationFrame(raf);el.classList.remove('tilting');el.style.setProperty('--mx',0);el.style.setProperty('--my',0)});
     });
     /* hero em camadas */
-    const h=$('.hero');let hr=0; /* h.classList.add('px'); */
+    const h=$('.hero');let hr=0;h.classList.add('px');
     h.addEventListener('pointermove',e=>{cancelAnimationFrame(hr);hr=requestAnimationFrame(()=>{h.style.setProperty('--hx',(e.clientX/innerWidth-.5).toFixed(3));h.style.setProperty('--hy',(e.clientY/innerHeight-.5).toFixed(3))})});
     h.addEventListener('pointerleave',()=>{h.style.setProperty('--hx',0);h.style.setProperty('--hy',0)});
   }
@@ -1228,7 +1228,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
     /* as fotos do anel só carregam quando a galeria se aproxima da tela */
     if('IntersectionObserver' in window){const lo=new IntersectionObserver(([e])=>{if(e.isIntersecting){its.forEach(it=>$('img',it).loading='eager');lo.disconnect()}},{rootMargin:'900px 0px'});lo.observe(st)}
     const size=()=>{const w=st.clientWidth<700?190:290;R=Math.round((w+22)/2/Math.tan(Math.PI/n));st.style.setProperty('--w',w+'px');ring.style.setProperty('--rad',R+'px');ring.style.setProperty('--t',T+'deg')};
-    /* st.classList.add('on'); */ size();addEventListener('resize',size);
+    st.classList.add('on');size();addEventListener('resize',size);
     const front=()=>((Math.round(-a/T)%n)+n)%n;
     const render=()=>{
       ring.style.transform=`translateZ(${-R}px) rotateX(-5deg) rotateY(${a}deg)`;
@@ -1299,7 +1299,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
         el.addEventListener('pause',()=>v.classList.add('paused'));el.addEventListener('play',()=>v.classList.remove('paused'));
         el.addEventListener('ended',()=>go(vs.indexOf(v)+1,true))}
       v.classList.add('on');el.play().catch(()=>v.classList.add('paused'))};
-    /* cf.classList.add('on'); */ go(0);cfReady=true;
+    cf.classList.add('on');go(0);cfReady=true;
     $$('[data-cf]').forEach(b=>b.addEventListener('click',()=>go(act+ +b.dataset.cf)));
     cf.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(act+1);else if(e.key==='ArrowLeft')go(act-1)});
     cf.addEventListener('pointerdown',e=>{sx=e.clientX});
