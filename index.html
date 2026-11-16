@@ -1269,12 +1269,13 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
       const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Vídeo: '+v.dataset.name);
       b.innerHTML=`<span class="st-ring"><img src="${poster.getAttribute('src')}" alt=""></span>${v.dataset.name}`;b.onclick=()=>go(i);st.append(b);
     });
+    let cfReady=false;
     const go=(i,autoplay)=>{act=(i+n)%n;$$('.vid.on video').forEach(x=>x.pause());
       vs.forEach((v,j)=>{let d=((j-act)%n+n)%n;if(d>n/2)d-=n;const ad=Math.abs(d);
         v.style.setProperty('--d',d);v.style.setProperty('--ad',ad);v.style.setProperty('--s',Math.sign(d));
         v.classList.toggle('act',!d);v.classList.toggle('far',ad>2);$('.play',v).tabIndex=d?-1:0;$('.like',v).tabIndex=d?-1:0});
       [...st.children].forEach((b,j)=>{b.setAttribute('aria-current',j===act);if(j===act)b.classList.add('seen')});
-      const cur=st.children[act];st.scrollTo({left:cur.offsetLeft-st.clientWidth/2+cur.offsetWidth/2,behavior:reduce?'auto':'smooth'});
+      const cur=st.children[act];if(cfReady)st.scrollTo({left:cur.offsetLeft-st.clientWidth/2+cur.offsetWidth/2,behavior:reduce?'auto':'smooth'});
       if(autoplay)play(vs[act])};
     /* player estilo Reels: toque pausa/continua, barra de progresso, ao terminar vai para o próximo */
     const play=v=>{let el=$('video',v);
@@ -1284,7 +1285,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
         el.addEventListener('pause',()=>v.classList.add('paused'));el.addEventListener('play',()=>v.classList.remove('paused'));
         el.addEventListener('ended',()=>go(vs.indexOf(v)+1,true))}
       v.classList.add('on');el.play().catch(()=>v.classList.add('paused'))};
-    cf.classList.add('on');go(0);
+    cf.classList.add('on');go(0);cfReady=true;
     $$('[data-cf]').forEach(b=>b.addEventListener('click',()=>go(act+ +b.dataset.cf)));
     cf.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(act+1);else if(e.key==='ArrowLeft')go(act-1)});
     cf.addEventListener('pointerdown',e=>{sx=e.clientX});
