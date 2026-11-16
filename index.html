@@ -83,7 +83,9 @@ h1 em,h2 em{font-style:normal;color:var(--orange-d)}
 .hero-body{position:relative;margin-top:auto;padding:120px var(--pad) clamp(28px,4vw,48px);display:grid;grid-template-columns:1fr minmax(0,620px);gap:32px}
 .hero-side{grid-column:2}
 .tag{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px;padding:8px 14px;border:1px solid rgba(255,255,255,.28);border-radius:999px}
-.tag:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 0 rgba(242,116,54,.7)}
+.tag{position:relative}
+.tag:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--orange)}
+.tag:after{content:"";position:absolute;left:14px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:rgba(242,116,54,.7);opacity:0;pointer-events:none}
 .hero h1{font-size:clamp(38px,4.5vw,68px);margin-bottom:22px}
 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.14em;margin-bottom:-.14em}
 .w>span{display:inline-block}
@@ -266,6 +268,9 @@ h1 em,h2 em{font-style:normal;color:var(--orange-d)}
   .spk-sec .sp:hover .img img,.spk-sec .sp:focus-visible .img img,.spk-sec .sp.feat .img img{filter:none}
   .spk-sec .speakers:has(.sp:hover) .sp:not(:hover){opacity:.45}
 }
+
+/* animações contínuas ficam pausadas fora da tela */
+.off,.off *,.off :before,.off :after,.off:before,.off:after{animation-play-state:paused!important}
 
 /* pop-up do palestrante */
 dialog.spm{border:0;padding:0;margin:auto;width:min(820px,calc(100vw - 32px));max-height:calc(100svh - 48px);border-radius:28px;background:var(--deep);color:#fff;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.5),0 0 0 1px rgba(242,116,54,.35)}
@@ -545,7 +550,7 @@ footer{background:#111614;color:#E8EAE8;margin-top:clamp(56px,8vw,100px);padding
   .hl path{animation:draw .9s var(--ease-io) 1.35s both}
   .fx{animation:up .9s var(--ease-out) both;animation-delay:calc(.2s + var(--i)*110ms)}
   .hero .glow{animation:float 9s var(--ease-io) infinite alternate}
-  .tag:before{animation:ping 2s ease-out infinite}
+  .tag:after{animation:ping 2s ease-out infinite}
   .pulse:after{animation:ring 2.4s var(--ease-out) 2s infinite}
   .badge>svg{animation:spin 18s linear infinite}
   .hero .hl:before{animation:wipe .8s var(--ease-io) .95s both}
@@ -582,7 +587,7 @@ footer{background:#111614;color:#E8EAE8;margin-top:clamp(56px,8vw,100px);padding
 @keyframes draw{from{stroke-dashoffset:1}}
 @keyframes up{from{opacity:0;transform:translateY(26px)}}
 @keyframes float{to{transform:translate(-6%,-8%) scale(1.12)}}
-@keyframes ping{to{box-shadow:0 0 0 12px rgba(242,116,54,0)}}
+@keyframes ping{from{opacity:1}to{transform:scale(4);opacity:0}}
 @keyframes ring{0%{opacity:.8;transform:scale(1)}70%,100%{opacity:0;transform:scale(1.18,1.5)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes spk3d{0%{transform:perspective(700px) rotateY(42deg) scale(.82);opacity:.45}50%{transform:perspective(700px) rotateY(0) scale(1);opacity:1}100%{transform:perspective(700px) rotateY(-42deg) scale(.82);opacity:.45}}
@@ -1086,8 +1091,10 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
   /* contagem regressiva */
   const target=new Date('2027-05-21T09:00:00-03:00').getTime(),cds=$$('[data-cd]'),pad=(n,l=2)=>String(n).padStart(l,'0');
   const tick=()=>{let s=Math.max(0,Math.floor((target-Date.now())/1e3));const v={d:Math.floor(s/86400),h:Math.floor(s%86400/3600),m:Math.floor(s%3600/60),s:s%60};
-    cds.forEach(c=>{c.hidden=false;for(const k in v){const el=$(`[data-u=${k}]`,c),t=String(k==='d'?v.d:pad(v[k]));if(el.textContent!==t){el.textContent=t;if(!reduce&&!document.hidden)el.animate([{transform:'translateY(-40%)',opacity:0},{transform:'none',opacity:1}],{duration:500,easing:'cubic-bezier(.22,1,.36,1)'})}}})};
-  tick();setInterval(tick,1000);
+    cds.forEach(c=>{c.hidden=false;for(const k in v){const el=$(`[data-u=${k}]`,c),t=String(k==='d'?v.d:pad(v[k]));if(el.textContent!==t)el.textContent=t}})};
+  tick();setInterval(()=>{if(!document.hidden)tick()},1000);
+  /* pausa as animações em loop das áreas que saíram da tela */
+  if('IntersectionObserver' in window){const po=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('off',!e.isIntersecting)));$$('.hero,.mq,.final').forEach(el=>po.observe(el))}
 
   /* faixas em movimento: duplica o conteúdo para o loop ficar contínuo */
   $$('.mq').forEach(q=>{const t=$('.mq-t',q);t.innerHTML+=t.innerHTML;t.innerHTML+=t.innerHTML;q.classList.add('run')});
@@ -1205,9 +1212,11 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
   fig.addEventListener('pointerdown',e=>{lsx=e.clientX});
   fig.addEventListener('pointerup',e=>{if(lsx===null)return;const dx=e.clientX-lsx;lsx=null;if(Math.abs(dx)>45)dx<0?showLb(li+1,1):showLb(li-1,-1)});
 
+  /* inicia componentes pesados só quando chegam perto da tela */
+  const nearView=(el,fn)=>{if(!('IntersectionObserver' in window))return fn();const o=new IntersectionObserver(([e])=>{if(e.isIntersecting){o.disconnect();fn()}},{rootMargin:'800px 0px'});o.observe(el)};
   /* galeria: anel 3D com arrastar, inércia e giro automático */
   const st=$('.ring-stage');
-  if(st){
+  if(st)nearView(st,()=>{
     const ring=$('.ring',st),its=$$('.ri',st),n=its.length,T=360/n,cap=$('.ring-cap');
     let a=0,v=0,target=null,drag=null,hover=false,vis=false,raf=0,last=0,downImg=null,moved=0,lastF=-1,R=0;
     its.forEach((it,i)=>{it.style.setProperty('--i',i);$('img',it).draggable=false});
@@ -1250,11 +1259,11 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
         if(best)openLb($('img',best))}
       start()};
     st.addEventListener('pointerup',end);st.addEventListener('pointercancel',end);
-  }
+  });
 
   /* vídeos: coverflow 3D; só carregam ao clicar no vídeo da frente */
   const cf=$('.cf');
-  if(cf){
+  if(cf)nearView(cf,()=>{
     const vs=$$('.vid',cf),n=vs.length,st=$('.ig-stories');let act=0,sx=null,swiped=false;
     const ICON={
       reel:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M3 8.5h18M8 3l3 5.5M14 3l3 5.5M10.5 12v5l4.2-2.5z"/></svg>',
@@ -1303,7 +1312,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
       });
       v.addEventListener('dblclick',e=>{if(v.classList.contains('act')&&!e.target.closest('.ig-side'))like(v,true)});
     });
-  }
+  });
 })();
 </script>
 </body>
