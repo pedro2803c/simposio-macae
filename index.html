@@ -468,14 +468,15 @@ footer{background:#111614;color:#E8EAE8;margin-top:clamp(56px,8vw,100px);padding
 .has-cur,.has-cur *{cursor:none!important}
 .has-cur dialog.lb,.has-cur dialog.lb *{cursor:auto!important}
 .has-cur dialog.lb button{cursor:pointer!important}
-.cur,.cur-tag{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .25s}
+.cur,.cur-tag{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .25s;will-change:transform;contain:layout style}
 .cur.show,.cur-tag.show{opacity:1}
-.cur svg{display:block;width:28px;height:28px;overflow:visible;filter:drop-shadow(0 0 5px rgba(242,116,54,.95)) drop-shadow(0 0 14px rgba(255,142,85,.75));transform-origin:3px 2px;transition:transform .25s var(--ease-spring)}
+.cur svg{position:relative;display:block;width:28px;height:28px;overflow:visible;filter:drop-shadow(0 0 4px rgba(242,116,54,.95));transform-origin:3px 2px;transition:transform .2s var(--ease-spring)}
+.cur:before{content:"";position:absolute;left:-10px;top:-10px;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,rgba(255,142,85,.75),rgba(242,116,54,.35) 45%,transparent 70%);opacity:.7}
 .cur.hot svg{transform:scale(1.25)}
 .cur-tag{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
 .cur-tag .you{padding:5px 11px;border-radius:4px 99px 99px 99px;background:linear-gradient(135deg,var(--orange),var(--amber));color:var(--deep);font:600 12px/1 var(--f-body);letter-spacing:.02em;box-shadow:0 0 0 1.5px rgba(255,255,255,.7),0 0 20px rgba(242,116,54,.8)}
-@media (prefers-reduced-motion:no-preference){.cur svg{animation:curGlow 2.2s ease-in-out infinite}}
-@keyframes curGlow{50%{filter:drop-shadow(0 0 8px rgba(242,116,54,1)) drop-shadow(0 0 22px rgba(255,163,0,.85))}}
+@media (prefers-reduced-motion:no-preference){.cur:before{animation:curGlow 2.2s ease-in-out infinite}}
+@keyframes curGlow{50%{opacity:1;transform:scale(1.35)}}
 
 /* ===== 3D interativo ===== */
 /* tilt com brilho: a classe .tilt só entra com mouse e movimento permitido */
@@ -1184,12 +1185,15 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
     c.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 2l7.6 19.2 2.7-8 7.9-2.8z" fill="#F27436" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>';
     tg.innerHTML='<span class="you">Você</span>';
     document.body.append(c,tg);document.documentElement.classList.add('has-cur');
-    let x=-200,y=-200,tx=x,ty=y,raf=0;
-    const loop=()=>{tx+=(x-tx)*(reduce?1:.22);ty+=(y-ty)*(reduce?1:.22);
-      const w=tg.offsetWidth,h=tg.offsetHeight,lx=tx+22+w>innerWidth-8?tx-w-10:tx+22,ly=ty+26+h>innerHeight-8?ty-h-10:ty+26;
-      tg.style.transform=`translate(${lx}px,${ly}px)`;raf=Math.abs(x-tx)+Math.abs(y-ty)>.3?requestAnimationFrame(loop):0};
-    addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;x=e.clientX;y=e.clientY;
-      c.style.transform=`translate(${x-3}px,${y-2}px)`;c.classList.add('show');tg.classList.add('show');if(!raf)raf=requestAnimationFrame(loop)},{passive:true});
+    /* segue o mouse no mesmo quadro, sem atraso; o tamanho do balão fica em cache para não forçar layout */
+    let tw=0,th=0,vw=innerWidth,vh=innerHeight;
+    const measure=()=>{tw=tg.offsetWidth;th=tg.offsetHeight;vw=innerWidth;vh=innerHeight};
+    addEventListener('resize',measure,{passive:true});
+    addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;const x=e.clientX,y=e.clientY;
+      if(!tw)measure();
+      c.style.transform=`translate3d(${x-3}px,${y-2}px,0)`;
+      tg.style.transform=`translate3d(${x+22+tw>vw-8?x-tw-10:x+22}px,${y+26+th>vh-8?y-th-10:y+26}px,0)`;
+      if(!c.classList.contains('show')){c.classList.add('show');tg.classList.add('show')}},{passive:true});
     document.addEventListener('pointerover',e=>{if(e.pointerType!=='mouse')return;const t=e.target,hot=t.closest('a,button,.vid,.ri,summary');
       c.classList.toggle('hot',!!hot)});
     document.documentElement.addEventListener('pointerleave',()=>{c.classList.remove('show');tg.classList.remove('show')});
