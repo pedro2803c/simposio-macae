@@ -471,12 +471,12 @@ footer{background:#111614;color:#E8EAE8;margin-top:clamp(56px,8vw,100px);padding
 .has-cur dialog.lb button{cursor:pointer!important}
 .cur,.cur-tag{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .25s;will-change:transform;contain:layout style}
 .cur.show,.cur-tag.show{opacity:1}
-.cur svg{position:relative;display:block;width:28px;height:28px;overflow:visible;filter:drop-shadow(0 0 4px rgba(242,116,54,.95));transform-origin:3px 2px;transition:transform .2s var(--ease-spring)}
+.cur svg{position:relative;display:block;width:28px;height:28px;overflow:visible;transform-origin:3px 2px}
 .cur:before{content:"";position:absolute;left:-10px;top:-10px;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,rgba(255,142,85,.75),rgba(242,116,54,.35) 45%,transparent 70%);opacity:.7}
 .cur.hot svg{transform:scale(1.25)}
 .cur-tag{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
 .cur-tag .you{padding:5px 11px;border-radius:4px 99px 99px 99px;background:linear-gradient(135deg,var(--orange),var(--amber));color:var(--deep);font:600 12px/1 var(--f-body);letter-spacing:.02em;box-shadow:0 0 0 1.5px rgba(255,255,255,.7),0 0 20px rgba(242,116,54,.8)}
-@media (prefers-reduced-motion:no-preference){.cur:before{animation:curGlow 2.2s ease-in-out infinite}}
+@media (prefers-reduced-motion:no-preference){.cur:before{}}
 @keyframes curGlow{50%{opacity:1;transform:scale(1.35)}}
 
 /* ===== 3D interativo ===== */
