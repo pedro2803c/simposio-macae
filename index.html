@@ -457,9 +457,9 @@ dialog.lb::backdrop{background:rgba(6,30,24,.94);backdrop-filter:blur(8px);-webk
 .final .cd div{background:rgba(10,42,34,.1);border-color:rgba(10,42,34,.2)}
 .final .btn{background:var(--deep);color:#fff}
 .final .btn i{background:var(--orange);color:var(--deep)}
-.aerial{position:relative;margin:0 var(--pad);border-radius:var(--r-lg);overflow:hidden;min-height:min(78vh,720px);display:flex;align-items:flex-end;color:#fff;background:#0A2A22}
+.aerial{position:relative;margin:0 var(--pad);border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9;max-height:85vh;color:#fff;background:#0A2A22}
 .aerial video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.aerial:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,42,34,0) 35%,rgba(10,42,34,.85))}
+
 .aerial-in{position:relative;z-index:1;padding:clamp(24px,5vw,64px);max-width:720px}
 .aerial .k{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:#FFB13B}
 .aerial h2{font:400 clamp(34px,5.5vw,72px)/1 var(--f-head);letter-spacing:-.03em;margin:12px 0 14px}
@@ -1040,12 +1040,6 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
 <!-- MACAE VISTA DO ALTO -->
 <section class="aerial on-dark" aria-label="Macaé vista do alto">
   <video muted loop playsinline preload="none" poster="assets/video/video-horizontal.webp" data-auto><source src="assets/video/video-horizontal.mp4" type="video/mp4"></video>
-  <div class="aerial-in">
-    <span class="k">Macaé · RJ</span>
-    <h2>A cidade do simpósio, <em>vista do alto</em></h2>
-    <p>Dois dias de ciência e afeto à beira-mar, no Royal Atlântica.</p>
-    <a class="btn" href="#inscricao">Garantir minha vaga <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a>
-  </div>
 </section>
 
 <!-- LOCAL -->
