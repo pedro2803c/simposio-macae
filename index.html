@@ -1270,6 +1270,8 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
     c.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 2l7.6 19.2 2.7-8 7.9-2.8z" fill="#F27436" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>';
     tg.innerHTML='<span class="you">Você</span>';
     document.body.append(c,tg);document.documentElement.classList.add('has-cur');
+    /* pop-ups (dialog) ficam numa camada acima de tudo: o cursor entra junto para continuar visível */
+    document.querySelectorAll('dialog').forEach(d=>new MutationObserver(()=>{(d.open?d:document.body).append(c,tg)}).observe(d,{attributes:true,attributeFilter:['open']}));
     /* segue o mouse no mesmo quadro, sem atraso; o tamanho do balão fica em cache para não forçar layout */
     let tw=0,th=0,vw=innerWidth,vh=innerHeight;
     const measure=()=>{tw=tg.offsetWidth;th=tg.offsetHeight;vw=innerWidth;vh=innerHeight};
