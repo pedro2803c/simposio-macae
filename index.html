@@ -457,6 +457,7 @@ dialog.lb::backdrop{background:rgba(6,30,24,.94);backdrop-filter:blur(8px);-webk
 .final .cd div{background:rgba(10,42,34,.1);border-color:rgba(10,42,34,.2)}
 .final .btn{background:var(--deep);color:#fff}
 .final .btn i{background:var(--orange);color:var(--deep)}
+.photo-card .sobre-vid{display:block;width:100%;height:100%;object-fit:cover}
 .aerial{position:relative;margin:0 var(--pad);border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9;max-height:85vh;color:#fff;background:#0A2A22}
 .aerial video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
@@ -810,7 +811,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
     <div class="about">
       <div class="left">
         <div class="photo-card clip plx">
-          <img src="assets/img/cinthia-palco.webp" width="900" height="1350" loading="lazy" alt="Cinthia Melo palestrando no 3º Simpósio">
+          <video class="sobre-vid" muted loop playsinline preload="none" poster="assets/video/cinthia-sobre.webp" width="480" height="854" aria-label="Cinthia Melo no 3º Simpósio"><source src="assets/video/cinthia-sobre.mp4" type="video/mp4"></video>
           <p class="over">“Foi um sucesso!” A 3ª edição lotou o Royal Atlântica.</p>
         </div>
         <div class="rating rv"><span class="stars">★★★★★</span><strong>5.0</strong><span class="muted">18 avaliações no Google</span></div>
@@ -1237,6 +1238,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
     new MutationObserver(()=>{sl.scrollLeft=0;upd()}).observe(sl,{subtree:true,attributes:true,attributeFilter:['hidden']})}
 
   /* vídeo aéreo: só baixa e toca perto da tela */
+  $$('.sobre-vid').forEach(v=>{if('IntersectionObserver' in window&&!reduce)new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?v.play().catch(()=>{}):v.pause()),{rootMargin:'200px'}).observe(v)});
   {const v=$('.aerial video');if(v&&'IntersectionObserver' in window&&!reduce)new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?v.play().catch(()=>{}):v.pause()),{rootMargin:'200px'}).observe(v)}
 
   /* filtro de palestrantes com transição */
