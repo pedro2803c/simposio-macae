@@ -457,6 +457,16 @@ dialog.lb::backdrop{background:rgba(6,30,24,.94);backdrop-filter:blur(8px);-webk
 .final .cd div{background:rgba(10,42,34,.1);border-color:rgba(10,42,34,.2)}
 .final .btn{background:var(--deep);color:#fff}
 .final .btn i{background:var(--orange);color:var(--deep)}
+.aerial{position:relative;margin:0 var(--pad);border-radius:var(--r-lg);overflow:hidden;min-height:min(78vh,720px);display:flex;align-items:flex-end;color:#fff;background:#0A2A22}
+.aerial video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.aerial:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,42,34,0) 35%,rgba(10,42,34,.85))}
+.aerial-in{position:relative;z-index:1;padding:clamp(24px,5vw,64px);max-width:720px}
+.aerial .k{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:#FFB13B}
+.aerial h2{font:400 clamp(34px,5.5vw,72px)/1 var(--f-head);letter-spacing:-.03em;margin:12px 0 14px}
+.aerial h2 em{font-style:normal;color:#FF9A3C}
+.aerial p{font-size:17px;opacity:.9;margin:0 0 24px}
+.aerial .btn{background:var(--orange);color:var(--deep)}
+.aerial .btn i{background:var(--deep);color:#fff}
 /* CTA final: degradê animado e destaques */
 .final{background:linear-gradient(135deg,#E0611F,#F27436 45%,#FF9A3C)}
 .final .fx{position:absolute;inset:-60%;z-index:0;pointer-events:none;background:conic-gradient(from 0deg,transparent 0 12%,rgba(255,200,90,.55) 22%,transparent 34%,rgba(194,68,15,.5) 55%,transparent 68%,rgba(255,255,255,.28) 82%,transparent 92%);filter:blur(40px)}
@@ -954,7 +964,6 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
       <div class="vid" data-src="assets/video/dep-karina.mp4" data-name="Karina"><img src="assets/video/dep-karina.webp" width="540" height="960" loading="lazy" alt=""><button class="play" aria-label="Assistir depoimento de Karina Thurler"></button><p class="cap"><b>cinthiamelonutri</b> Karina Thurler conta o que levou do simpósio para a prática ✨ <span>#nutricaoinfantil</span></p></div>
       <div class="vid" data-src="assets/video/cinthia-palestrantes.mp4" data-name="Palestrantes"><img src="assets/video/cinthia-palestrantes.webp" width="540" height="960" loading="lazy" alt=""><button class="play" aria-label="Assistir vídeo de Cinthia e palestrantes"></button><p class="cap"><b>cinthiamelonutri</b> Bastidores com as palestrantes da 3ª edição 💚 <span>#simposiomacae</span></p></div>
       <div class="vid" data-src="assets/video/video-vertical.mp4" data-name="Momentos"><img src="assets/video/video-vertical.webp" width="540" height="960" loading="lazy" alt=""><button class="play" aria-label="Assistir vídeo com momentos do simpósio"></button><p class="cap"><b>cinthiamelonutri</b> Momentos do 3º Simpósio 🎤 <span>#dificuldadesalimentares</span></p></div>
-      <div class="vid" data-src="assets/video/video-horizontal.mp4" data-name="Macaé"><img src="assets/video/video-horizontal.webp" width="960" height="540" loading="lazy" alt=""><button class="play" aria-label="Assistir vídeo de Macaé vista do alto"></button><p class="cap"><b>cinthiamelonutri</b> Macaé vista do alto: a cidade do simpósio 🌊 <span>#macae</span></p></div>
     </div>
     <div class="ctrl"><button class="arr" data-cf="-1" aria-label="Vídeo anterior"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 8H3M7 4 3 8l4 4"/></svg></button><div class="ig-stories" role="group" aria-label="Escolher vídeo"></div><button class="arr" data-cf="1" aria-label="Próximo vídeo"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button></div>
     <a class="ig-follow" href="https://www.instagram.com/cinthiamelonutri/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Seguir @cinthiamelonutri</a>
@@ -1008,6 +1017,17 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
         <a class="btn dark" style="margin-top:24px" href="https://wa.me/5522997470556?text=Ol%C3%A1%2C%20quero%20ser%20patrocinador%20do%204%C2%BA%20Simp%C3%B3sio">Quero ser patrocinador <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- MACAE VISTA DO ALTO -->
+<section class="aerial on-dark" aria-label="Macaé vista do alto">
+  <video muted loop playsinline preload="none" poster="assets/video/video-horizontal.webp" data-auto><source src="assets/video/video-horizontal.mp4" type="video/mp4"></video>
+  <div class="aerial-in">
+    <span class="k">Macaé · RJ</span>
+    <h2>A cidade do simpósio, <em>vista do alto</em></h2>
+    <p>Dois dias de ciência e afeto à beira-mar, no Royal Atlântica.</p>
+    <a class="btn" href="#inscricao">Garantir minha vaga <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a>
   </div>
 </section>
 
@@ -1205,6 +1225,9 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
     $$('[data-spk]').forEach(b=>b.onclick=()=>{const c=$('.sp:not([hidden])',sl);sl.scrollBy({left:+b.dataset.spk*(c?c.offsetWidth+18:300)*(innerWidth>900?2:1),behavior:reduce?'auto':'smooth'})});
     sl.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});addEventListener('resize',upd);upd();
     new MutationObserver(()=>{sl.scrollLeft=0;upd()}).observe(sl,{subtree:true,attributes:true,attributeFilter:['hidden']})}
+
+  /* vídeo aéreo: só baixa e toca perto da tela */
+  {const v=$('.aerial video');if(v&&'IntersectionObserver' in window&&!reduce)new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?v.play().catch(()=>{}):v.pause()),{rootMargin:'200px'}).observe(v)}
 
   /* filtro de palestrantes com transição */
   const sps=$$('.sp');sps.forEach((s,i)=>s.style.viewTransitionName='sp'+i);
