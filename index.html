@@ -464,6 +464,10 @@ dialog.lb::backdrop{background:rgba(6,30,24,.94);backdrop-filter:blur(8px);-webk
 .final .hot i{position:relative;width:8px;height:8px;border-radius:50%;background:#FFB13B}
 .final .hot i:after{content:"";position:absolute;inset:0;border-radius:50%;background:#FFB13B}
 .final .k{display:block}
+.final .date{display:inline-block;font-weight:500;background:linear-gradient(100deg,#fff 0 38%,#FFE2A8 46%,#fff 54% 100%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 22px rgba(120,40,0,.35))}
+.final .date sup{color:var(--deep);-webkit-text-fill-color:var(--deep);background:#fff;padding:.35em .55em;border-radius:.5em;font-weight:600;margin-top:.7em}
+@media (prefers-reduced-motion:no-preference){#inscricao .date{animation:grow 1ms linear both,dateShine 4s linear infinite;animation-timeline:view(),auto;animation-range:entry 0% cover 45%,normal}.final.off .date{animation-play-state:running,paused}}
+@keyframes dateShine{to{background-position:-250% 0}}
 .final .cd div{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.45);box-shadow:0 10px 30px rgba(120,40,0,.18)}
 .final .btn.big{position:relative;font-size:clamp(17px,2vw,20px);box-shadow:0 18px 40px rgba(10,42,34,.35)}
 .final .btn.big:before{content:"";position:absolute;inset:-6px;border-radius:inherit;border:2px solid rgba(10,42,34,.55);pointer-events:none;opacity:0}
