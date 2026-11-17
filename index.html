@@ -457,6 +457,29 @@ dialog.lb::backdrop{background:rgba(6,30,24,.94);backdrop-filter:blur(8px);-webk
 .final .cd div{background:rgba(10,42,34,.1);border-color:rgba(10,42,34,.2)}
 .final .btn{background:var(--deep);color:#fff}
 .final .btn i{background:var(--orange);color:var(--deep)}
+/* CTA final: degradê animado e destaques */
+.final{background:linear-gradient(135deg,#E0611F,#F27436 45%,#FF9A3C)}
+.final .fx{position:absolute;inset:-60%;z-index:0;pointer-events:none;background:conic-gradient(from 0deg,transparent 0 12%,rgba(255,200,90,.55) 22%,transparent 34%,rgba(194,68,15,.5) 55%,transparent 68%,rgba(255,255,255,.28) 82%,transparent 92%);filter:blur(40px)}
+.final .hot{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;padding:8px 16px;border-radius:99px;background:var(--deep);color:#fff;font-size:13px;font-weight:500;letter-spacing:.02em;box-shadow:0 8px 24px rgba(10,42,34,.25)}
+.final .hot i{position:relative;width:8px;height:8px;border-radius:50%;background:#FFB13B}
+.final .hot i:after{content:"";position:absolute;inset:0;border-radius:50%;background:#FFB13B}
+.final .k{display:block}
+.final .cd div{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.45);box-shadow:0 10px 30px rgba(120,40,0,.18)}
+.final .btn.big{position:relative;font-size:clamp(17px,2vw,20px);box-shadow:0 18px 40px rgba(10,42,34,.35)}
+.final .btn.big:before{content:"";position:absolute;inset:-6px;border-radius:inherit;border:2px solid rgba(10,42,34,.55);pointer-events:none;opacity:0}
+.final .perks{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;list-style:none;margin:22px 0 0;padding:0;font-size:14px;font-weight:500}
+.final .perks li:before{content:"✓";margin-right:7px}
+@media (prefers-reduced-motion:no-preference){
+  .final .fx{animation:fxSpin 14s linear infinite}
+  .final .hot i:after{animation:hotPing 1.6s var(--ease-out) infinite}
+  .final .btn.big{animation:ctaNudge 2.8s var(--ease-io) infinite}
+  .final .btn.big:before{animation:ctaRing 2.8s var(--ease-out) infinite}
+  .final.off .fx,.final.off .hot i:after,.final.off .btn.big,.final.off .btn.big:before{animation-play-state:paused}
+}
+@keyframes fxSpin{to{transform:rotate(1turn)}}
+@keyframes hotPing{70%,100%{transform:scale(2.6);opacity:0}}
+@keyframes ctaNudge{0%,70%,100%{transform:none}78%{transform:scale(1.05)}86%{transform:scale(.98)}92%{transform:scale(1.02)}}
+@keyframes ctaRing{0%,68%{opacity:0;transform:scale(1)}74%{opacity:1}100%{opacity:0;transform:scale(1.18,1.35)}}
 
 /* footer */
 footer{background:#111614;color:#E8EAE8;margin-top:clamp(56px,8vw,100px);padding:clamp(48px,7vw,88px) 0 28px}
@@ -1029,6 +1052,8 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
 
 <!-- FINAL CTA -->
 <section class="final" id="inscricao">
+  <span class="fx" aria-hidden="true"></span>
+  <span class="hot"><i></i>Lote de lançamento · vagas limitadas</span>
   <span class="k">4º Simpósio de Alimentação e Desenvolvimento Infantil de Macaé</span>
   <div class="date">21—22<sup>MAIO<br>2027</sup></div>
   <p>As vagas são limitadas. Garanta seu lugar no lote de lançamento.</p>
@@ -1036,6 +1061,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
     <div><b data-u="d">000</b><span>dias</span></div><div><b data-u="h">00</b><span>horas</span></div><div><b data-u="m">00</b><span>min</span></div><div><b data-u="s">00</b><span>seg</span></div>
   </div>
   <a class="btn big" href="https://pay.kiwify.com.br/d4dkCdo">Garantir minha vaga · R$ 390 <i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></a>
+  <ul class="perks"><li>Certificado de 17h</li><li>2 dias de imersão</li><li>Pagamento seguro</li></ul>
 </section>
 
 </main>
