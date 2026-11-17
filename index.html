@@ -247,6 +247,17 @@ h1 em,h2 em{font-style:normal;color:var(--orange-d)}
 .spk-sec .filters button[aria-pressed=true]{background:var(--orange);border-color:var(--orange);color:var(--deep)}
 .filters button sup{font-size:10px;opacity:.7;margin-left:3px}
 .spk-sec .speakers{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+/* palestrantes em carrossel */
+.spk-sec .speakers{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:6px 2px 14px;overscroll-behavior-x:contain}
+.spk-sec .speakers::-webkit-scrollbar{display:none}
+@media (min-width:761px){.spk-sec .speakers .sp{flex:0 0 calc((100% - 54px)/4);scroll-snap-align:start}}
+@media (min-width:901px) and (max-width:1100px){.spk-sec .speakers .sp{flex-basis:calc((100% - 36px)/3)}}
+@media (min-width:761px) and (max-width:900px){.spk-sec .speakers .sp{flex-basis:calc((100% - 18px)/2)}}
+.spk-ctrl{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px}
+.spk-ctrl .spk-prog{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.14);overflow:hidden}
+.spk-ctrl .spk-prog i{display:block;height:100%;width:var(--w,25%);background:var(--orange);border-radius:3px;transform:translateX(var(--x,0));transition:transform .3s var(--ease-out),width .3s}
+.spk-ctrl .btns{display:flex;gap:10px}
+.spk-ctrl .arr:disabled{opacity:.3;cursor:default}
 .spk-sec .sp{position:relative;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:24px;padding:10px;transition:transform .35s var(--ease-out),box-shadow .35s,opacity .4s,background .3s}
 .spk-sec .sp.tilt{transition:transform .7s var(--ease-out),box-shadow .5s,opacity .4s,background .3s}
 .spk-sec .sp.tilt.tilting{transition:transform .15s linear,box-shadow .5s,opacity .4s,background .3s}
@@ -894,6 +905,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
       <a class="sp" data-c="dev" href="https://cinthiamelonutri.com.br/palestrante-clayton-moraes/"><div class="img"><img src="assets/img/pal-09.webp" width="250" height="196" loading="lazy" alt=""></div><h3>Clayton Moraes</h3><p>Professor de Educação Física</p><span class="lnk">Biografia ↗</span></a>
       <a class="sp" data-c="mente" href="https://cinthiamelonutri.com.br/palestrante-antonio-mucio/"><div class="img"><img src="assets/img/pal-02.webp" width="250" height="196" loading="lazy" alt=""></div><h3>Antônio Múcio</h3><p>Desenvolvimento humano</p><span class="lnk">Biografia ↗</span></a>
     </div>
+    <div class="spk-ctrl"><div class="spk-prog"><i></i></div><div class="btns"><button class="arr" data-spk="-1" aria-label="Palestrantes anteriores"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 8H3M7 4 3 8l4 4"/></svg></button><button class="arr" data-spk="1" aria-label="Próximos palestrantes"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button></div></div>
   </div>
 </section>
 
@@ -1155,6 +1167,14 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
   spm.addEventListener('click',e=>{if(e.target===spm)spm.close()});
   spm.addEventListener('keydown',e=>{if(e.key==='ArrowRight')$('[data-spm="1"]',spm).click();else if(e.key==='ArrowLeft')$('[data-spm="-1"]',spm).click()});
   spm.addEventListener('close',()=>spLast&&spLast.focus({preventScroll:true}));
+
+  /* carrossel de palestrantes: setas e barra de progresso */
+  {const sl=$('.spk-sec .speakers'),bar=$('.spk-ctrl .spk-prog i'),[pv,nx]=$$('[data-spk]');
+    const upd=()=>{const max=sl.scrollWidth-sl.clientWidth,f=sl.clientWidth/sl.scrollWidth;bar.style.setProperty('--w',(f*100)+'%');
+      bar.style.setProperty('--x',(max>0?sl.scrollLeft/max*(1/f-1)*100:0)+'%');pv.disabled=sl.scrollLeft<4;nx.disabled=sl.scrollLeft>max-4};
+    $$('[data-spk]').forEach(b=>b.onclick=()=>{const c=$('.sp:not([hidden])',sl);sl.scrollBy({left:+b.dataset.spk*(c?c.offsetWidth+18:300)*(innerWidth>900?2:1),behavior:reduce?'auto':'smooth'})});
+    sl.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});addEventListener('resize',upd);upd();
+    new MutationObserver(()=>{sl.scrollLeft=0;upd()}).observe(sl,{subtree:true,attributes:true,attributeFilter:['hidden']})}
 
   /* filtro de palestrantes com transição */
   const sps=$$('.sp');sps.forEach((s,i)=>s.style.viewTransitionName='sp'+i);
