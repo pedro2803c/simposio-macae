@@ -1242,13 +1242,29 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
   spm.addEventListener('keydown',e=>{if(e.key==='ArrowRight')$('[data-spm="1"]',spm).click();else if(e.key==='ArrowLeft')$('[data-spm="-1"]',spm).click()});
   spm.addEventListener('close',()=>spLast&&spLast.focus({preventScroll:true}));
 
-  /* carrossel de palestrantes: setas e barra de progresso */
-  {const sl=$('.spk-sec .speakers'),bar=$('.spk-ctrl .spk-prog i'),[pv,nx]=$$('[data-spk]');
+  /* carrossel de palestrantes: setas, barra de progresso e autoplay */
+  {const sl=$('.spk-sec .speakers'),bar=$('.spk-ctrl .spk-prog i'),[pv,nx]=$$('[data-spk]'),sec=$('.spk-sec');
     const upd=()=>{const max=sl.scrollWidth-sl.clientWidth,f=sl.clientWidth/sl.scrollWidth;bar.style.setProperty('--w',(f*100)+'%');
       bar.style.setProperty('--x',(max>0?sl.scrollLeft/max*(1/f-1)*100:0)+'%');pv.disabled=sl.scrollLeft<4;nx.disabled=sl.scrollLeft>max-4};
-    $$('[data-spk]').forEach(b=>b.onclick=()=>{const c=$('.sp:not([hidden])',sl);sl.scrollBy({left:+b.dataset.spk*(c?c.offsetWidth+18:300)*(innerWidth>900?2:1),behavior:reduce?'auto':'smooth'})});
+    const step=()=>{const c=$('.sp:not([hidden])',sl);return (c?c.offsetWidth+18:300)*(innerWidth>900?2:1)};
+    let timer=0,paused=false,inView=true;
+    const stop=()=>{clearInterval(timer);timer=0};
+    const start=()=>{stop();if(reduce||paused||!inView||document.hidden||spm.open)return;
+      timer=setInterval(()=>{if(document.hidden||spm.open||paused||!inView)return;
+        const max=sl.scrollWidth-sl.clientWidth;if(max<8)return;
+        const c=$('.sp:not([hidden])',sl),gap=parseFloat(getComputedStyle(sl).gap)||18,w=c?c.offsetWidth+gap:300;
+        if(sl.scrollLeft>=max-6)sl.scrollTo({left:0,behavior:'smooth'});
+        else sl.scrollBy({left:w,behavior:'smooth'})},3200)};
+    $$('[data-spk]').forEach(b=>b.onclick=()=>{sl.scrollBy({left:+b.dataset.spk*step(),behavior:reduce?'auto':'smooth'});start()});
     sl.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});addEventListener('resize',upd);upd();
-    new MutationObserver(()=>{sl.scrollLeft=0;upd()}).observe(sl,{subtree:true,attributes:true,attributeFilter:['hidden']})}
+    ['pointerenter','focusin','touchstart'].forEach(ev=>sec.addEventListener(ev,()=>{paused=true;stop()},{passive:true}));
+    ['pointerleave','focusout'].forEach(ev=>sec.addEventListener(ev,()=>{paused=false;start()},{passive:true}));
+    sl.addEventListener('touchend',()=>{setTimeout(()=>{paused=false;start()},3500)},{passive:true});
+    document.addEventListener('visibilitychange',()=>document.hidden?stop():start());
+    spm.addEventListener('close',start);
+    if('IntersectionObserver' in window)new IntersectionObserver(es=>{inView=es[0].isIntersecting;inView?start():stop()},{threshold:.15}).observe(sec);
+    new MutationObserver(()=>{sl.scrollLeft=0;upd();start()}).observe(sl,{subtree:true,attributes:true,attributeFilter:['hidden']});
+    start()}
 
   /* vídeo aéreo: só baixa e toca perto da tela */
   $$('.sobre-vid').forEach(v=>{if('IntersectionObserver' in window&&!reduce)new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?v.play().catch(()=>{}):v.pause()),{rootMargin:'200px'}).observe(v)});
