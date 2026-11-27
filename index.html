@@ -82,8 +82,9 @@ h1 em,h2 em{font-style:normal;color:var(--orange-d)}
 .hero .scrim{position:absolute;inset:0;background:radial-gradient(900px circle at 22% 48%,rgba(15,79,62,.55),transparent 62%),linear-gradient(180deg,rgba(6,30,24,.45) 0,rgba(6,30,24,0) 24%,rgba(8,34,27,.55) 100%)}
 .hero .glow{position:absolute;right:-10%;bottom:-20%;width:55vw;height:55vw;border-radius:50%;background:radial-gradient(circle,rgba(242,116,54,.38),rgba(242,116,54,0) 62%);pointer-events:none}
 .hero-body{position:relative;margin-top:auto;padding:120px var(--pad) clamp(28px,4vw,48px);display:grid;grid-template-columns:1fr minmax(0,620px);gap:32px;align-items:center}
-.hero-logo{grid-column:1;justify-self:center;align-self:center;width:min(440px,100%);padding:clamp(22px,2.8vw,38px);border-radius:36px;background:rgba(255,255,255,.97);box-shadow:0 32px 84px -22px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.45);display:grid;place-items:center}
-.hero-logo img{width:100%;height:auto;max-height:360px;object-fit:contain}
+.hero-logo{position:relative;grid-column:1;justify-self:center;align-self:center;width:min(520px,100%);display:grid;place-items:center}
+.hero-logo:before{content:"";position:absolute;inset:-28%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.11),rgba(2,168,175,.07) 42%,transparent 70%);pointer-events:none}
+.hero-logo img{position:relative;width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 20px 42px rgba(0,0,0,.42))}
 .hero-side{grid-column:2}
 .tag{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px;padding:8px 14px;border:1px solid rgba(255,255,255,.28);border-radius:999px}
 .tag{position:relative}
@@ -689,8 +690,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
 @media (max-width:980px){
   .about,.cin,.why,.testi,.spons,.local,.faq,.foot,.hero-body{grid-template-columns:1fr}
   .hero-side{grid-column:1}
-  .hero-logo{width:min(320px,82vw);padding:20px;border-radius:26px;margin-bottom:4px}
-  .hero-logo img{max-height:240px}
+  .hero-logo{width:min(360px,86vw);margin:8px 0 4px}
   .hero-body{padding-top:96px}
   .badge{display:none}
   .stk.s1{left:var(--pad);top:96px}
@@ -713,8 +713,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
   .stk .ic{width:30px;height:30px;font-size:14px;border-radius:9px}
   .stk.s1{top:84px}
   .stk.s2{top:auto;bottom:calc(100% - 36svh - 8px)}
-  .hero-logo{width:min(260px,76vw);padding:16px;border-radius:22px}
-  .hero-logo img{max-height:190px}
+  .hero-logo{width:min(300px,84vw)}
   .hero-body{padding-top:84px}
   .tag{margin-bottom:16px;white-space:nowrap}
   .hero h1{margin-bottom:18px}
@@ -781,7 +780,7 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
 
   <div class="hero-body">
     <div class="hero-logo fx" style="--i:1">
-      <img src="assets/img/logo-simposio.svg" width="810" height="810" alt="Logo do 4º Simpósio de Alimentação e Desenvolvimento Infantil de Macaé" fetchpriority="high">
+      <img src="assets/img/logo-simposio.svg?v=2" width="658" height="260" alt="Logo do 4º Simpósio de Alimentação e Desenvolvimento Infantil de Macaé" fetchpriority="high">
     </div>
     <div class="hero-side">
       <span class="tag fx" style="--i:0">Simpósio · 4ª edição · <span class="opt">Macaé ·&nbsp;</span>21 e 22 de maio de 2027</span>
