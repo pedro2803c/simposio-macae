@@ -463,7 +463,7 @@ dialog.lb::backdrop{background:rgba(6,30,24,.94);backdrop-filter:blur(8px);-webk
 .final .btn{background:var(--deep);color:#fff}
 .final .btn i{background:var(--orange);color:var(--deep)}
 .photo-card .sobre-vid{display:block;width:100%;height:100%;object-fit:cover}
-.aerial{position:relative;margin:0 var(--pad);border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9;max-height:85vh;color:#fff;background:#0A2A22}
+.aerial{position:relative;width:min(calc(100% - var(--pad)*2),var(--max));margin:0 auto;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9;max-height:85vh;color:#fff;background:#0A2A22}
 .aerial video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
 .aerial-in{position:relative;z-index:1;padding:clamp(24px,5vw,64px);max-width:720px}
