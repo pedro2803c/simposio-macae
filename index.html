@@ -15,7 +15,7 @@
 <link rel="preload" href="assets/fonts/sora.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/heebo.woff2" as="font" type="font/woff2" crossorigin>
 <style>@font-face{font-family:Sora;font-style:normal;font-weight:300 600;font-display:block;src:url(assets/fonts/sora.woff2) format("woff2")}@font-face{font-family:Heebo;font-style:normal;font-weight:400 500;font-display:swap;src:url(assets/fonts/heebo.woff2) format("woff2")}</style>
-<link rel="preload" as="image" href="assets/img/hero.webp" imagesrcset="assets/img/hero-m.webp 900w, assets/img/hero.webp 1920w" imagesizes="100vw">
+<link rel="preload" as="image" href="assets/img/logo-simposio.svg">
 <style>
 :root{
   --bg:#F4F2EE; --bg-2:#ECE9E3; --paper:#FFFFFF; --ink:#1C2320; --muted:#636A65; --line:#DFDBD3;
@@ -79,9 +79,11 @@ h1 em,h2 em{font-style:normal;color:var(--orange-d)}
 .hero{position:relative;min-height:100svh;color:#fff;display:flex;flex-direction:column;overflow:hidden;background:var(--deep)}
 .hero picture{position:absolute;inset:0}
 .hero picture img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 25%;transform-origin:30% 30%}
-.hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,30,24,.55) 0,rgba(6,30,24,0) 22%),linear-gradient(90deg,rgba(6,30,24,0) 26%,rgba(6,30,24,.7) 42%,rgba(8,34,27,.96) 54%,var(--deep) 100%)}
+.hero .scrim{position:absolute;inset:0;background:radial-gradient(900px circle at 22% 48%,rgba(15,79,62,.55),transparent 62%),linear-gradient(180deg,rgba(6,30,24,.45) 0,rgba(6,30,24,0) 24%,rgba(8,34,27,.55) 100%)}
 .hero .glow{position:absolute;right:-10%;bottom:-20%;width:55vw;height:55vw;border-radius:50%;background:radial-gradient(circle,rgba(242,116,54,.38),rgba(242,116,54,0) 62%);pointer-events:none}
-.hero-body{position:relative;margin-top:auto;padding:120px var(--pad) clamp(28px,4vw,48px);display:grid;grid-template-columns:1fr minmax(0,620px);gap:32px}
+.hero-body{position:relative;margin-top:auto;padding:120px var(--pad) clamp(28px,4vw,48px);display:grid;grid-template-columns:1fr minmax(0,620px);gap:32px;align-items:center}
+.hero-logo{grid-column:1;justify-self:center;align-self:center;width:min(440px,100%);padding:clamp(22px,2.8vw,38px);border-radius:36px;background:rgba(255,255,255,.97);box-shadow:0 32px 84px -22px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.45);display:grid;place-items:center}
+.hero-logo img{width:100%;height:auto;max-height:360px;object-fit:contain}
 .hero-side{grid-column:2}
 .tag{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px;padding:8px 14px;border:1px solid rgba(255,255,255,.28);border-radius:999px}
 .tag{position:relative}
@@ -560,7 +562,7 @@ footer{background:#111614;color:#E8EAE8;margin-top:clamp(56px,8vw,100px);padding
 .js .clip.tilt{transition:clip-path 1.1s var(--ease-io) calc(var(--d,0)*90ms),transform .7s var(--ease-out),box-shadow .5s}
 .js .clip.tilt.tilting{transition:clip-path 1.1s var(--ease-io),transform .15s linear,box-shadow .5s}
 /* hero: camadas em profundidade seguindo o mouse */
-.hero.px picture{scale:1.05;translate:calc(var(--hx,0)*-26px) calc(var(--hy,0)*-16px);transition:translate 1s var(--ease-out)}
+.hero.px .hero-logo{translate:calc(var(--hx,0)*-22px) calc(var(--hy,0)*-14px);transition:translate 1s var(--ease-out)}
 .hero.px .hero-side{translate:calc(var(--hx,0)*12px) calc(var(--hy,0)*8px);transition:translate 1s var(--ease-out)}
 .hero.px .badge{translate:calc(var(--hx,0)*36px) calc(var(--hy,0)*26px);transition:translate 1s var(--ease-out)}
 .hero.px .glow{translate:calc(var(--hx,0)*70px) calc(var(--hy,0)*46px);transition:translate 1.4s var(--ease-out)}
@@ -687,9 +689,9 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
 @media (max-width:980px){
   .about,.cin,.why,.testi,.spons,.local,.faq,.foot,.hero-body{grid-template-columns:1fr}
   .hero-side{grid-column:1}
-  .hero picture img{object-position:62% 12%}
-  .hero .scrim{background:linear-gradient(180deg,rgba(6,30,24,.6) 0,rgba(6,30,24,0) 16%,rgba(6,30,24,0) 30%,rgba(8,34,27,.9) 50%,var(--deep) 68%)}
-  .hero-body{padding-top:46svh}
+  .hero-logo{width:min(320px,82vw);padding:20px;border-radius:26px;margin-bottom:4px}
+  .hero-logo img{max-height:240px}
+  .hero-body{padding-top:96px}
   .badge{display:none}
   .stk.s1{left:var(--pad);top:96px}
   .stk.s2{left:auto;right:var(--pad);bottom:auto;top:168px}  .about .left .photo-card{aspect-ratio:1/1}
@@ -711,7 +713,9 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
   .stk .ic{width:30px;height:30px;font-size:14px;border-radius:9px}
   .stk.s1{top:84px}
   .stk.s2{top:auto;bottom:calc(100% - 36svh - 8px)}
-  .hero-body{padding-top:36svh}
+  .hero-logo{width:min(260px,76vw);padding:16px;border-radius:22px}
+  .hero-logo img{max-height:190px}
+  .hero-body{padding-top:84px}
   .tag{margin-bottom:16px;white-space:nowrap}
   .hero h1{margin-bottom:18px}
   .cd{margin-bottom:20px}
@@ -763,10 +767,6 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
 
 <!-- HERO -->
 <header class="hero" id="topo">
-  <picture>
-    <source media="(max-width:900px)" srcset="assets/img/hero-m.webp">
-    <img src="assets/img/hero.webp" width="1920" height="1280" alt="Cinthia Melo diante da plateia do 3º Simpósio, em Macaé" fetchpriority="high">
-  </picture>
   <div class="aura" aria-hidden="true"></div>
   <div class="scrim"></div>
   <div class="glow"></div>
@@ -780,6 +780,9 @@ img[src$="g-248.webp"],img[src$="g-620.webp"],img[src$="g-82.webp"]{object-posit
   </div>
 
   <div class="hero-body">
+    <div class="hero-logo fx" style="--i:1">
+      <img src="assets/img/logo-simposio.svg" width="810" height="810" alt="Logo do 4º Simpósio de Alimentação e Desenvolvimento Infantil de Macaé" fetchpriority="high">
+    </div>
     <div class="hero-side">
       <span class="tag fx" style="--i:0">Simpósio · 4ª edição · <span class="opt">Macaé ·&nbsp;</span>21 e 22 de maio de 2027</span>
       <h1 aria-label="Alimentação e desenvolvimento infantil, com ciência e afeto">
